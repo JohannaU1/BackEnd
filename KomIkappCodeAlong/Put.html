@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUT method</title>
+    <style>
+        .align{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="align">Todo Node API</h1>
+    <a href="get.html">Visa todos</a> <a href="post.html">Lägg till ny post</a>
+    <h2 class="align">PUT method</h2>
+
+
+    <label for="title">Titel</label>
+    <input type="text" id="title"><br>
+
+    <label for="userId">Användare</label>
+    <input type="text" id="userId"><br>
+
+    
+    <label for="completed">Färdigt</label>
+    <input type="text" id="completed" value="true"><br>
+
+    <button onclick="changeTodo()">Spara göromål</button>
+
+
+
+
+
+
+    <script>
+        //Här läser man in id:t id nummer hamnar i 'id'
+        const id = new URLSearchParams(window.location.search).get('id')
+
+        function changeTodo()
+        {
+            // hämtar in todoes och id detta behövs eftersom vi vill byta ut den.
+            fetch('http://localhost:1234/todos/' + id ,{
+                method: 'PUT',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify({
+                    userId: document.getElementById('userId').value,
+                    title: document.getElementById('title').value,
+                    completed: document.getElementById('completed').value == 1 ? 1 : 0 
+                })
+            })
+            .then(response =>response.json())
+            .then(data =>console.log(data))
+        }
+
+
+
+        // // Hämta nuvarande informationen, Detta görs med en GET.
+        fetch('http://localhost:1234/todos/' + id)
+        .then(response =>response.json())
+        .then(data => {console.log("TheData:", data)
+
+
+        document.getElementById("title").value = data.Todos[0].Title;
+        document.getElementById("userId").value = data.Todos[0].UserId;
+        document.getElementById("completed").value = data.Todos[0].Completed;
+
+
+        })
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET Method</title>
+    <style>
+        .align{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="align">Todo Node API</h1>
+    <a href="get.html">Visa todos</a> <a href="post.html">Lägg till ny post</a>
+
+
+
+    <h2 class="align">GET method</h2>
+
+    <div id="allTodos"></div>
+
+
+    <script>
+        //Hämtar url 'http://localhost:1234/todos'
+        fetch('http://localhost:1234/todos')
+        
+        //När vi fått svar från urln översätts den till json
+
+        .then(response =>response.json())
+
+        //den data vi får i json consol loggar vi
+
+        .then(data => {
+            console.log("TheData:", data)
+         // Tom sträng
+            let allTodos = ""
+        //forloop som tar sig igenom alla todos och skriver ut den i p tagen
+            for (let r of data.Todos)
+            {
+                allTodos += ` 
+
+                <p>${r.Id} - ${r.Title} - ${r.Firstname} ${r.Lastname} - ${r.Completed} - <a href="put.html?id=${r.Id}">Ändra</a>  - <a href="delete.html?id=${r.Id}">Ta bort</a></p>`;
+            }
+            document.getElementById("allTodos").innerHTML = allTodos;
+        }
+        // Fråga micke varför man måste skriva det i p taggen?
+    )
+    </script>
+    
+</body>
+</html>
+
+

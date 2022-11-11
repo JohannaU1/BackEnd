@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST METHOD</title>
+    <style>
+        .align{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="align">Todo Node API</h1>
+    <a href="get.html">Visa todos</a> <a href="post.html">Lägg till ny post</a>
+    <h2 class="align">POST method</h2>
+
+
+        <label for="title">Titel</label>
+        <input type="text" id="title"><br>
+
+        <label for="userId">Användare</label>
+        <input type="text" id="userId"><br>
+
+        <button onclick="saveTodo()">Spara göromål</button>
+
+
+
+
+    <script>
+        function saveTodo()
+        {
+            //Hämtar url
+            fetch('http://localhost:1234/todos',{
+                //Berättar för url att vi ska skicka saker
+                method: 'POST',
+                //Sakerna vi kommer att skicka ska vara i json format
+                headers: {'content-type': 'application/json'},
+              
+              
+                // Detta är vad vi skickar in genom vårat formulär 
+                body: JSON.stringify({
+                    userId: document.getElementById('userId').value,
+                    title: document.getElementById('title').value,
+                    completed: false
+                })
+            })
+            //Skickar den till databasen => Databasen svarar i consolen.
+            .then(response=>response.json())
+            //console.loggar ut 
+            .then(data=>console.log("data", data))
+        }
+    </script>
+</body>
+</html>

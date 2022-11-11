@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELETE METHOD</title>
+    <style>
+        .align{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="align">Todo Node API</h1>
+    <a href="get.html">Visa todos</a> <a href="post.html">Lägg till ny post</a>
+    <h2 class="align">DELETE method</h2>
+
+
+    
+    <script>
+        const id = new URLSearchParams(window.location.search).get('id')
+        fetch('http://localhost:1234/todos/' + id,{
+            method:"DELETE"
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+
+    </script>
+</body>
+</html>
